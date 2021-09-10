@@ -27,7 +27,7 @@ export function Rule(): JSX.Element {
             <li>기호: BEAN</li>
             <li>소수점: 1e18</li>
             <li>총 발행량: 100,000개</li>
-            <li>토큰 주소: 0x2aC288FFba1D95735E822802e2De76CfFefDe86E</li>
+            <li>토큰 주소: 0x427EbB6260173E77136214D11509b070DF09Ea89</li>
           </ul>
         </article>
 
