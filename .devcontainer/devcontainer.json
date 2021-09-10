@@ -17,8 +17,12 @@
       }
     },
     "terminal.integrated.defaultProfile.linux": "zsh (login)",
-    "editor.defaultFormatter": null,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
+    "editor.rulers": [120],
+    "workbench.colorCustomizations": {
+      "editorRuler.foreground": "#ff408042"
+    },
     "[json]": {
       "editor.quickSuggestions": {
         "strings": true
@@ -26,12 +30,20 @@
       "editor.suggest.insertMode": "replace",
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "[jsonc]": {
+      "editor.quickSuggestions": {
+        "strings": true
+      },
+      "editor.suggest.insertMode": "replace",
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[javascript]": {
-      "editor.formatOnSave": true,
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[typescript]": {
-      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "editor.codeActionsOnSave": {
@@ -45,7 +57,8 @@
     "tintinweb.graphviz-interactive-preview",
     "esbenp.prettier-vscode",
     "ms-vscode.vscode-typescript-tslint-plugin",
-    "github.vscode-pull-request-github"
+    "github.vscode-pull-request-github",
+    "jpoissonnier.vscode-styled-components"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.

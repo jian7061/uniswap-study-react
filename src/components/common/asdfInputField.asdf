@@ -1,0 +1,420 @@
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
+import { Validation } from './index';
+
+export enum Status {
+  Normal,
+  Error,
+  Success,
+}
+
+// left와 right일 경우에 작동의 차이가 존재함.
+const Label = styled.label`
+  color: #757575;
+  position: absolute;
+  transition: all 0.2s ease;
+  z-index: 500;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+`;
+
+const LeftLabel = styled(Label)<{ size: Sizes; focused: boolean }>`
+  ${(props) =>
+    props.size === Sizes.Large &&
+    css`
+      font-size: 1.5rem;
+      margin-left: 2.7rem;
+      margin-right: 1.5rem;
+      ${props.focused
+        ? css`
+            transform: translateY(-25px) translateX(-5px);
+            font-size: 0.8rem;
+            padding: 0 6px;
+            z-index: 501;
+            background-color: ${props.theme.background};
+          `
+        : ``}
+    `}
+
+  ${(props) =>
+    props.size === Sizes.Medium &&
+    css`
+      font-size: 1rem;
+      margin-left: 2.3rem;
+      ${props.focused
+        ? css`
+            transform: translateY(-20px) translateX(-3px);
+            font-size: 0.7rem;
+            padding: 0 4px;
+            z-index: 501;
+            background-color: ${props.theme.background};
+          `
+        : ``}
+    `}
+
+  ${(props) =>
+    props.size === Sizes.Small &&
+    css`
+      font-size: 0.8rem;
+      margin-left: 2.3rem;
+      ${props.focused
+        ? css`
+            transform: translateY(-18px) translateX(-3px);
+            font-size: 0.5rem;
+            padding: 0 4px;
+            z-index: 501;
+            background-color: ${props.theme.background};
+          `
+        : ``}
+    `}
+`;
+
+const RightLabel = styled(Label)<{ size: Sizes }>`
+  ${(props) =>
+    props.size === Sizes.Large &&
+    css`
+      margin-left: 1.5rem;
+      margin-right: 2.7rem;
+      top: -10px;
+      right: -5px;
+      font-size: 0.8rem;
+      padding: 0 6px;
+      z-index: 501;
+      background-color: ${props.theme.background};
+    `}
+
+  ${(props) =>
+    props.size === Sizes.Medium &&
+    css`
+      margin-right: 2.3rem;
+      top: -10px;
+      right: -5px;
+      font-size: 0.7rem;
+      padding: 0 4px;
+      z-index: 501;
+      background-color: ${props.theme.background};
+    `}
+
+    ${(props) =>
+    props.size === Sizes.Small &&
+    css`
+      margin-right: 2.3rem;
+      top: -7px;
+      right: -5px;
+      font-size: 0.5rem;
+      padding: 0 4px;
+      z-index: 501;
+      background-color: ${props.theme.background};
+    `}
+`;
+
+type FieldProps = {
+  focused: boolean;
+  labelRighted: boolean;
+  image: boolean;
+  size: Sizes;
+  states: Status;
+};
+
+const FieldContainer = styled.div<FieldProps>`
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  position: relative;
+  width: 100%;
+
+  & > div {
+    position: absolute;
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    vertical-align: center;
+    ${(props) =>
+      props.image &&
+      props.size === Sizes.Large &&
+      css`
+        margin-left: 2.3rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      `}
+    ${(props) =>
+      props.image &&
+      props.size === Sizes.Medium &&
+      css`
+        width: 1rem;
+        height: 1rem;
+      `}
+    ${(props) =>
+      props.image &&
+      props.size === Sizes.Small &&
+      css`
+        width: 0.8rem;
+        height: 0.8rem;
+      `}
+
+    & > img {
+      ${(props) =>
+        props.image
+          ? css`
+              width: 100%;
+              height: 100%;
+            `
+          : css`
+              width: 0;
+              height: 0;
+            `}
+    }
+  }
+
+  & > ${LeftLabel} {
+  }
+  & > ${RightLabel} {
+  }
+
+  & > input {
+    width: 100%;
+    flex: 0 0 fit-content;
+
+    font-weight: 400;
+    border: 2px solid #a1a1a1;
+    outline: none;
+    cursor: pointer;
+    display: inline-block;
+
+    margin: 0rem 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    background-color: transparent;
+    color: #302f2d;
+    z-index: 500;
+    border-radius: 5rem;
+
+    ${(props) => props.states === Status.Success && `border-color: ${props.theme.success};`};
+    ${(props) => props.states === Status.Error && `border-color: ${props.theme.error};`};
+
+    ${(props) =>
+      !props.image &&
+      props.size === Sizes.Large &&
+      css`
+        line-height: 24px;
+        font-size: 24px;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      `}
+
+    ${(props) =>
+      props.image &&
+      props.size === Sizes.Large &&
+      css`
+        line-height: 24px;
+        font-size: 24px;
+        padding-left: 3.2rem;
+        padding-right: 1.5rem;
+      `}
+
+    ${(props) =>
+      !props.image &&
+      props.size === Sizes.Medium &&
+      css`
+        line-height: 1rem;
+        font-size: 1rem;
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+      `}
+
+    ${(props) =>
+      props.image &&
+      props.size === Sizes.Medium &&
+      css`
+        line-height: 1rem;
+        font-size: 1rem;
+        padding-left: 2.2rem;
+        padding-right: 1.2rem;
+      `}
+
+    ${(props) =>
+      !props.image &&
+      props.size === Sizes.Small &&
+      css`
+        line-height: 0.8rem;
+        font-size: 0.8rem;
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+      `}
+
+    ${(props) =>
+      props.image &&
+      props.size === Sizes.Small &&
+      css`
+        line-height: 0.8rem;
+        font-size: 0.8rem;
+        padding-left: 2.2rem;
+        padding-right: 1.2rem;
+      `}
+
+    &:hover {
+        border-color: #302f2d;
+    }
+
+    &:focus {
+      border-color: #302f2d;
+      ${(props) => props.states === Status.Success && `border-color: ${props.theme.success};`};
+      ${(props) => props.states === Status.Error && `border-color: ${props.theme.error};`};
+    }
+  }
+
+  & + & > input {
+    border-radius: 0.5rem;
+  }
+`;
+
+const StyledContainer = styled.div`
+  width: 100%;
+  display: inline-flex;
+  margin: 1rem 0;
+`;
+
+export type InputFieldProps = {
+  // Input Field에 나타날 문자열 데이터
+  value?: string;
+  // Input Field를 통해 입력 가능한 최대 크기 Right Label이 활성화 되어 있는 경우에만 가능.
+  // Only Possibly Numeric Type Value
+  maxValue?: string;
+  // Input Field의 크기
+  size?: Sizes;
+  // Input Field을 설명하는 Label Text, 클릭되는 경우 활성화 되어 올라옴.
+  label?: string;
+  // Input Field 오른쪽 상단에 존재하는 Label Text
+  labelRight?: string;
+  // Input Field에 나타나는 Placeholder Text
+  placeholder?: string;
+  // Input Field가 Blur 상태일 때, Label을 고정하는 옵션,
+  fixed?: boolean;
+  // image logo
+  src?: string;
+  // Input Field에 데이터가 입력될 때 데이터를 담은 Callback
+  onChange?: (value: string) => void;
+  // Input Field의 Validation을 통해 Input Field의 상태 Callback
+  onStatus?: (status: Status) => void;
+  // Input Field의 Validation을 통해 성공 또는 오류 Text들 Callback
+  onMessages?: (value: string[]) => void;
+  // Input Field의 오른쪽 라벨을 눌렀을 때 실행되는 Callback
+  onClickRightLabel?: (value: string) => void;
+  // 검증된 Value를 받는 핸들러
+  onValidateValue?: (value: string) => void;
+  // Input Field의 Validation 로직을 주입하는 배열
+  validations?: Validation[];
+}
+
+/**
+ * A Plaid-inspired custom input component
+ *
+ * @param {string} value - the value of the controlled input
+ * @param {string} maxValue - the value of the available max value
+ * @param {Sizes} size - the type of input we'll deal with
+ * @param {string} label - the label of input
+ * @param {string} placeholder - the placeholder of input element this is for focused
+ * @param {function} onChange - function called when the input value changes
+ * @param {function} onStatus - function called when the input of status
+ * @param {function} onMessages - function called when the input messages
+ * @param {function} onClickRightLabel - function called when the clicked righted label
+ * @param {function[]} validations - set of validation logic function
+ * @param {function} setRef - function used to add this input as a ref for a parent component
+ */
+export const InputField = ({
+  value = "",
+  maxValue = "",
+  size = Sizes.Medium,
+  label = "",
+  labelRight = "",
+  placeholder = "",
+  fixed = false,
+  src = "",
+  onChange = () => undefined,
+  onStatus = () => undefined,
+  onMessages = () => undefined,
+  onClickRightLabel = () => undefined,
+  onValidateValue = () => undefined,
+  validations = [
+    () => {
+      return [false, ""];
+    },
+  ],
+  ...props
+}: InputFieldProps): JSX.Element => {
+  const [states, setStates] = useState<Status>(Status.Normal);
+  const [focused, setFocused] = useState<boolean>(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
+
+  const validators = (value: string, logics: Validation[]): string[] => {
+    const errors: string[] = new Array<string>();
+    logics.forEach((logic) => {
+      const [isSuccess, ErrorMessage] = logic(value);
+      if (isSuccess) {
+        errors.push(ErrorMessage);
+      }
+    });
+    if (maxValue.length > 0) {
+      if (BigInt(value) > BigInt(maxValue)) errors.push("flood max value");
+    }
+    return errors;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const errors: string[] = validators(value, validations);
+    if (errors.length > 0) {
+      onMessages(errors);
+      setStates(Status.Error);
+    } else {
+      onMessages([]);
+      setStates(Status.Success);
+      onValidateValue(value);
+    }
+    onChange(value);
+    onStatus(states);
+  };
+
+  const clickRightLabel = () => {
+    onChange(maxValue);
+  };
+
+  const isFocused =
+    focused || String(value).length > 0 || fixed || src.length > 0;
+
+  return (
+    <FieldContainer
+      focused={isFocused}
+      size={size}
+      states={states}
+      image={src.length > 0}
+      labelRighted={labelRight.length > 0}
+    >
+      <div>
+        <img src={src} />
+      </div>
+      <LeftLabel size={size} focused={isFocused}>
+        {label}
+      </LeftLabel>
+      {labelRight.length > 0 ? (
+        <RightLabel size={size} onClick={clickRightLabel}>
+          {labelRight}
+        </RightLabel>
+      ) : (
+        ""
+      )}
+      <input
+        type="text"
+        value={value}
+        placeholder={isFocused || label === "" ? placeholder : ""}
+        onChange={handleChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        {...props}
+      />
+    </FieldContainer>
+  );
+};

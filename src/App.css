@@ -1,18 +1,10 @@
-.App {
-  padding: 2rem;
-  text-align: left;
-  max-width: 1080px;
-}
+.Container {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  grid-gap: 20px;
 
-.App-logo {
-  height: 30vmin;
-  pointer-events: none;
-}
-
-ul {
-  padding-left: 20px;
-}
-
-ul li {
-  margin: 0.618rem;
+  & > * {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+  }
 }
