@@ -1,32 +1,36 @@
 import React, { StrictMode } from "react";
-import { Web3ReactProvider} from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
+import { createWeb3ReactRoot, Web3ReactProvider} from '@web3-react/core';
 import ReactDOM from "react-dom";
 import { HashRouter } from "react-router-dom";
 import { ThemeProvider, ThemedGlobalStyle } from "./theme";
 import App from "./App";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from "./reportWebVitals";
+import { getLibrary } from "./utils";
 
-
-function getLibrary(provider: any): Web3Provider {
-  const library = new Web3Provider(provider);
-  library.pollingInterval = 12000;
-  return library;
-}
+const Web3ProviderNetwork = createWeb3ReactRoot('NETWORK');
 
 ReactDOM.render(
   <StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
-      <HashRouter>
-        <ThemeProvider>
-          <ThemedGlobalStyle/>
-            <App />
-        </ThemeProvider>
-      </HashRouter>
+      <Web3ProviderNetwork getLibrary={getLibrary}>
+        <HashRouter>
+          <ThemeProvider>
+            <ThemedGlobalStyle/>
+              <App />
+          </ThemeProvider>
+        </HashRouter>
+      </Web3ProviderNetwork>
     </Web3ReactProvider>
   </StrictMode>,
   document.getElementById("root")
 );
+
+console.log('Service Worker is Enabled?: ', process.env.REACT_APP_SERVICE_WORKER);
+
+if (process.env.REACT_APP_SERVICE_WORKER === 'true') {
+  serviceWorkerRegistration.register();
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

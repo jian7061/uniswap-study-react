@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { useWeb3React } from "@web3-react/core";
+import { useWeb3React as useWeb3ReactCore } from "@web3-react/core";
 import { Web3ReactContextInterface } from '@web3-react/core/dist/types'
 import { Web3Provider } from '@ethersproject/providers';
 
 import { injected } from "../constants/connectors";
 
 export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> {
-  const context = useWeb3React<Web3Provider>()
-  const contextNetwork = useWeb3React<Web3Provider>("NETWORK")
-  return context.active ? context : contextNetwork
+  const context = useWeb3ReactCore<Web3Provider>();
+  const contextNetwork = useWeb3ReactCore<Web3Provider>('NETWORK');
+  return context.active ? context : contextNetwork;
 }
 
 /**
@@ -16,7 +16,7 @@ export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> {
  * @returns bool
  */
 export function useEagerConnect(): boolean {
-  const { activate, active } = useWeb3React();
+  const { activate, active } = useWeb3ReactCore();
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export function useEagerConnect(): boolean {
 }
 
 export function useInactiveListener(suppress = false): void {
-  const { active, error, activate } = useWeb3React();
+  const { active, error, activate } = useWeb3ReactCore();
 
   useEffect((): any => {
     const { ethereum } = window as any;

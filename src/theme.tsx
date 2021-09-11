@@ -5,6 +5,8 @@ import styled, {
   createGlobalStyle,
   ThemeProvider as OriginThemeProvider
 } from 'styled-components';
+import AnounousProRegularWOFF2 from './fonts/anonymous-pro-v14-latin-regular.woff2';
+import AnounousProBoldWOFF2 from './fonts/anonymous-pro-v14-latin-700.woff2';
 
 export const MEDIA_WIDTHS = {
   upToExtraSmall: 500,
@@ -79,6 +81,24 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }): JSX.
 };
 
 export const ThemedGlobalStyle = createGlobalStyle`
+  /* anonymous-pro-regular - latin */
+  @font-face {
+    font-family: 'Anonymous Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+        url(${AnounousProRegularWOFF2}) format('woff2');
+  }
+
+  /* anonymous-pro-700 - latin */
+  @font-face {
+    font-family: 'Anonymous Pro';
+    font-style: normal;
+    font-weight: 700;
+    src: local(''),
+        url(${AnounousProBoldWOFF2}) format('woff2');
+  }
+
   html {
     color: ${({ theme }) => theme.text};
     background-color: ${({ theme }) => theme.background} !important;

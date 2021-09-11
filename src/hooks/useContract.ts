@@ -12,7 +12,7 @@ export function useContract<T extends Contract = Contract>(
   withSignerIfPossible = true
 ): T | null {
   const { library, account, chainId } = useActiveWeb3React()
-
+  
   return useMemo(() => {
     if (!addressOrAddressMap || !ABI || !library || !chainId) return null
     let address: string | undefined
@@ -40,6 +40,6 @@ export function getContract(address: string, ABI: any, library: Web3Provider, ac
   return new Contract(address, ABI, getProviderOrSigner(library, account) as any)
 }
 
-export function useMerkleDistributorContract() {
-  return useContract(MERKLE_DISTRIBUTOR_ADDRESS[5], MERKLE_DISTRIBUTOR_ABI, true)
+export function useMerkleDistributorContract(): Contract | null {
+  return useContract(MERKLE_DISTRIBUTOR_ADDRESS, MERKLE_DISTRIBUTOR_ABI, true);
 }

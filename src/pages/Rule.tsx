@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import { Main } from "../components/common";
 
 const Container = styled.div`
-display: grid;
-grid-template-columns: repeat(12, 1fr);
-grid-gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 16px;
 
-& > Main {
-  grid-column: 2 / 12;
-}
+  & > Main {
+    grid-column: 2 / 12;
+  }
 `;
 
 export function Rule(): JSX.Element {
@@ -17,7 +17,7 @@ export function Rule(): JSX.Element {
       <Main>
         <article>
           <h1>bean the DAO</h1>
-          <p>bean the DAO는 다양한 프로토콜의 거버넌스를 관리하는 하나의 Social DAO입니다. 다양한 프로토콜을 구축하고 관리 권한을 bean the DAO에 위임합니다. 시너지 효과를 위해 사용자 소유의 다양한 거버넌스 토큰을 bean the DAO에 위임하고 투표로 발생되는 이익을 위임자들에게 배분합니다.</p>
+          <p>bean the DAO는 다양한 프로토콜의 거버넌스를 관리하는 하나의 Social DAO입니다. 다양한 프로토콜을 구축하고 관리 권한을 bean the DAO에 위임합니다. 배포된 프로토콜과 이미 존재하는 프로토콜의 시너지 효과를 위해, 사용자 소유의 다양한 거버넌스 토큰을 bean the DAO에 위임하고 투표로 발생되는 이익을 위임자들에게 배분합니다.</p>
         </article>
 
         <article>

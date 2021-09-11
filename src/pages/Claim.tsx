@@ -4,14 +4,12 @@ import { formatEther } from '@ethersproject/units';
 
 import styled from 'styled-components';
 import { BigNumber } from '@ethersproject/bignumber';
-import { Contract } from "ethers";
 
 import { Button, Main } from "../components/common";
 import { AddressInput } from "../components/AddressInput";
-import { MERKLE_DISTRIBUTOR_ADDRESS } from "../constants";
 
 import claim from "../claim.json";
-import MerkleDistributorABI from "../ABIs/MerkleDistributor.json";
+import { useMerkleDistributorContract } from "../hooks/useContract";
 
 interface ClaimType {
   merkleRoot: string;
@@ -45,7 +43,7 @@ const InputGroup = styled.div`
 
 export function Claim(): JSX.Element {
   const { library } = useWeb3React();
-  const [Distributor, setDistributor] = useState<Contract>();
+  const Distributor = useMerkleDistributorContract();
   const [result] = useState<ClaimType>(claim);
   const [address, setAddress] = useState<string>("");
   const [amount, setAmount] = useState<BigNumber>(BigNumber.from("0"));
@@ -57,8 +55,6 @@ export function Claim(): JSX.Element {
   };
 
   useEffect(() => {
-    setDistributor(new Contract(MERKLE_DISTRIBUTOR_ADDRESS[1], MerkleDistributorABI, library?.getSigner()));
-
     if(result.claims[`${address}`] !== undefined) {
       Distributor?.isClaimed(result.claims[`${address}`].index).then(claimed => {
         setIndex(result.claims[`${address}`].index);

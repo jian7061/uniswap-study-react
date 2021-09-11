@@ -64,6 +64,7 @@ const StyledButton = styled.button`
     font-family: Anonymous Pro;
     font-style: normal;
     font-weight: bold;
+    height: 100%;
     
     /* 크기 */
     ${sizeStyles}
@@ -72,9 +73,9 @@ const StyledButton = styled.button`
     ${colorStyles}
 
     /* 기타 */
-    & + & {
-        margin-left: 1rem;
-    }
+    /* & + & {
+        margin-bottom: 1rem;
+    } */
 `;
 
 export const Button = ({

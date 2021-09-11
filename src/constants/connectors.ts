@@ -1,6 +1,8 @@
+import { Web3Provider } from '@ethersproject/providers';
 import { InjectedConnector } from "@web3-react/injected-connector";
-import { NetworkConnector } from "@web3-react/network-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
+import { getLibrary } from '../utils';
+import { NetworkConnector } from './NetworkConnector';
 
 const RIVET_KEY = process.env.REACT_APP_RIVET_KEY;
 
@@ -18,11 +20,11 @@ const RPC_URLS: { [chainId: number]: string } = {
 };
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5],
+  supportedChainIds: [1, 5],
 });
 
 export const network = new NetworkConnector({
-  urls: { 1: RPC_URLS[1], 4: RPC_URLS[4] },
+  urls: { 1: RPC_URLS[1], 5: RPC_URLS[5] },
   defaultChainId: 1,
 });
 
@@ -30,6 +32,11 @@ export const walletconnect = new WalletConnectConnector({
   rpc: { 1: RPC_URLS[1] },
   qrcode: true,
 });
+
+let networkLibrary: Web3Provider | undefined
+export function getNetworkLibrary(): Web3Provider {
+  return (networkLibrary = networkLibrary ?? getLibrary(network.provider))
+}
 
 // export const walletlink = new WalletLinkConnector({
 //   url: RPC_URLS[1],

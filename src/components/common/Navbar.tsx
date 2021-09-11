@@ -1,32 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Web3ReactProvider, useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
+import { useState } from "react";
+import { useWeb3React } from '@web3-react/core';
 import { NavLink } from "react-router-dom";
-// import {
-//   NoEthereumProviderError,
-//   UserRejectedRequestError as UserRejectedRequestErrorInjected
-// } from '@web3-react/injected-connector';
-// import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from '@web3-react/walletconnect-connector';
 import { Web3Provider } from '@ethersproject/providers';
-import { useEagerConnect, useInactiveListener } from '../../hooks/web3';
-import styled, { css } from 'styled-components';
-import { AbstractConnector } from '@web3-react/abstract-connector';
+import styled from 'styled-components';
 import {
     injected,
-    network,
     walletconnect
   } from '../../constants/connectors';
-import { Button, Logo } from ".";
+import { Button, Logo, Dialog } from ".";
 import { WalletInfo } from "./WalletInfo";
 
 // enum ConnectorNames {
 //     Injected = 'Injected',
-//     Network = 'Network',
 //     WalletConnect = 'WalletConnect'
 // };
   
 // const connectorsByName: { [key in ConnectorNames]: AbstractConnector } = {
 //     [ConnectorNames.Injected]: injected,
-//     [ConnectorNames.Network]: network,
 //     [ConnectorNames.WalletConnect]: walletconnect,
 // };
 
@@ -68,26 +58,17 @@ const Alert = styled.div`
 `;
 
 export const Navbar = (): JSX.Element => {
+    const [dialog, setDialog] = useState(false);
     const context = useWeb3React<Web3Provider>()
-    const { connector, library, chainId, account, activate, deactivate, active, error } = context;
+    const { chainId, account, activate, deactivate } = context;
 
-    const [activating, setActivating] = useState<boolean>(false);
-    // handle logic to recognize the connector currently being activated
-    const [activatingConnector, setActivatingConnector] = useState<any>()
+    const handleConnect = () => {
+        setDialog(true);
+    }
 
-    useEffect(() => {
-        console.log(account);
-        console.log(chainId);
-        if (activatingConnector && activatingConnector === connector) {
-            setActivatingConnector(undefined);
-        }
-    }, [activatingConnector, connector])
-
-    // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
-    const triedEager = useEagerConnect()
-
-    // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
-    useInactiveListener(!triedEager || !!activatingConnector)
+    const onCancel = () => {
+        setDialog(false);
+    };
 
     return (
         <>
@@ -103,14 +84,26 @@ export const Navbar = (): JSX.Element => {
                     </NavLink>
                 </StyledContainer>
                 {account === undefined ? 
-                    <Button size={'medium'}
-                        onClick={() => {
-                            setActivatingConnector(injected)
-                            activate(injected)
-                        }}>Connect
-                    </Button> : <WalletInfo>{account?.substring(0, 6)}...{account?.substring(account.length - 4)}</WalletInfo>
+                    <Button
+                        size={'medium'}
+                        onClick={handleConnect}>Connect</Button> : 
+                        <WalletInfo>
+                            {account?.substring(0, 6)}...{account?.substring(account.length - 4)}
+                        </WalletInfo>
                 }
             </StyledNavbar>
+            <Dialog headertitle={'연결할 지갑을 선택하세요'} onCancel={onCancel} visible={dialog}>
+                <Button size={'medium'}
+                        onClick={() => {
+                            activate(walletconnect)
+                            onCancel()
+                        }}>WalletConnect</Button>
+                <Button size={'medium'}
+                        onClick={() => {
+                            activate(injected)
+                            onCancel()
+                        }}>브라우저 확장</Button>
+            </Dialog>
         </>
     );
 }
