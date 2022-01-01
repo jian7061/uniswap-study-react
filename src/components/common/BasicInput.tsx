@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
 import { Validation } from './index';
 import { hexToRgbWithOpacity } from '../utils';
 
@@ -12,7 +12,7 @@ import { hexToRgbWithOpacity } from '../utils';
 //   margin: 0 1rem;
 //   position: relative;
 
-  /* & + & > input {
+/* & + & > input {
     border-radius: 0.5rem;
   } */
 // `;
@@ -53,8 +53,8 @@ import { hexToRgbWithOpacity } from '../utils';
 //   z-index: 500;
 //   font-weight: 400;
 
-//   ${props => 
-//     props.size === 'large' && 
+//   ${props =>
+//     props.size === 'large' &&
 //     css`
 //       margin-left: 1.62rem;
 //       font-size: ${props.theme.size.h3};
@@ -68,8 +68,8 @@ import { hexToRgbWithOpacity } from '../utils';
 //         `}
 //     `}
 
-//   ${props => 
-//     props.size === 'medium' && 
+//   ${props =>
+//     props.size === 'medium' &&
 //     css`
 //       margin-left: 1rem;
 //       font-size: ${props.theme.size.body};
@@ -83,8 +83,8 @@ import { hexToRgbWithOpacity } from '../utils';
 //         `}
 //     `}
 
-//   ${props => 
-//     props.size === 'small' && 
+//   ${props =>
+//     props.size === 'small' &&
 //     css`
 //       margin-left: 0.875rem;
 //       font-size: ${props.theme.size.small};
@@ -110,24 +110,24 @@ const colorStyles = css`
 `;
 
 const sizeStyles = css`
-  ${props => 
-    props.size === 'large' && 
+  ${(props) =>
+    props.size === 'large' &&
     css`
       line-height: ${props.theme.size.h3};
       font-size: ${props.theme.size.h3};
       padding: ${props.theme.size.small} ${props.theme.size.body};
     `}
 
-  ${props => 
-    props.size === 'medium' && 
+  ${(props) =>
+    props.size === 'medium' &&
     css`
       line-height: ${props.theme.size.body};
       font-size: ${props.theme.size.body};
       padding: ${props.theme.size.pretitle} ${props.theme.size.small};
     `}
 
-  ${props => 
-    props.size === 'small' && 
+  ${(props) =>
+    props.size === 'small' &&
     css`
       line-height: ${props.theme.size.small};
       font-size: ${props.theme.size.small};
@@ -136,53 +136,53 @@ const sizeStyles = css`
 `;
 
 const StyledInput = styled.input`
-    display: inline-flex;
-    position: relative;
-    width: 100%;
-    background-color: transparent;
-    border-radius: 2rem;
+  display: inline-flex;
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+  border-radius: 2rem;
 
-    /* 색상 */
-    ${colorStyles}
+  /* 색상 */
+  ${colorStyles}
 
-    /* 크기 */
+  /* 크기 */
     ${sizeStyles}
 `;
 
 type BasicInputProps = {
-  uniqueKey: string;
+  uniqueKey: string,
 
-  type?: string;
+  type?: string,
   // Input Field에 나타날 문자열 데이터
-  value?: string;
+  value?: string,
   // Input Field를 통해 입력 가능한 최대 크기 Right Label이 활성화 되어 있는 경우에만 가능.
   // Only Possibly Numeric Type Value
-  maxValue?: string;
+  maxValue?: string,
   // Input Field의 크기 'large', 'medium', 'small'
-  size?: string;
+  size?: string,
   // Input Field 오른쪽 상단에 존재하는 Label Text
-  labelRight?: string;
+  labelRight?: string,
   // Input Field에 나타나는 Placeholder Text
-  placeholder?: string;
+  placeholder?: string,
   // Input Field가 Blur 상태일 때, Label을 고정하는 옵션,
-  fixed?: boolean;
+  fixed?: boolean,
   // Input Field에 데이터가 입력될 때 데이터를 담은 Callback
-  onChange?: (value: string) => void;
+  onChange?: (value: string) => void,
   // // Input Field의 Validation을 통해 성공 또는 오류 Text들 Callback
   // onMessages?: (value: string[]) => void;
   // // Input Field의 오른쪽 라벨을 눌렀을 때 실행되는 Callback
   // onClickRightLabel?: (value: string) => void;
   // // Input Field의 Validation 로직을 주입하는 배열
   // validations?: Validation[];
-}
+};
 
 export const BasicInput = ({
   uniqueKey,
-  type='text', 
-  value='', 
-  maxValue='',
-  size='medium', 
-  placeholder='', 
+  type = 'text',
+  value = '',
+  maxValue = '',
+  size = 'medium',
+  placeholder = '',
   onChange = () => undefined,
   ...rest
 }: BasicInputProps): JSX.Element => {
@@ -199,10 +199,11 @@ export const BasicInput = ({
       size={size}
       placeholder={placeholder}
       onChange={handleChange}
-      {...rest}/>
+      {...rest}
+    />
   );
-}
+};
 // placeholder={isFocused || label === "" ? placeholder : ""}
 // {/* // <StyledContainer> */}
-    // {/* <Label htmlFor={uniqueKey} size={size} focused={isFocused}>{label}</Label> */}
+// {/* <Label htmlFor={uniqueKey} size={size} focused={isFocused}>{label}</Label> */}
 // {/* { children } </StyledContainer> */}

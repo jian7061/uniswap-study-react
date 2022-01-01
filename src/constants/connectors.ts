@@ -1,15 +1,13 @@
 import { Web3Provider } from '@ethersproject/providers';
-import { InjectedConnector } from "@web3-react/injected-connector";
-import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
+import { InjectedConnector } from '@web3-react/injected-connector';
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { getLibrary } from '../utils';
 import { NetworkConnector } from './NetworkConnector';
 
 const RIVET_KEY = process.env.REACT_APP_RIVET_KEY;
 
-if (typeof RIVET_KEY === "undefined") {
-  throw new Error(
-    `REACT_APP_INFURA_KEY must be a defined environment variable`
-  );
+if (typeof RIVET_KEY === 'undefined') {
+  throw new Error(`REACT_APP_INFURA_KEY must be a defined environment variable`);
 }
 
 const RPC_URLS: { [chainId: number]: string } = {
@@ -33,9 +31,9 @@ export const walletconnect = new WalletConnectConnector({
   qrcode: true,
 });
 
-let networkLibrary: Web3Provider | undefined
+let networkLibrary: Web3Provider | undefined;
 export function getNetworkLibrary(): Web3Provider {
-  return (networkLibrary = networkLibrary ?? getLibrary(network.provider))
+  return (networkLibrary = networkLibrary ?? getLibrary(network.provider));
 }
 
 // export const walletlink = new WalletLinkConnector({

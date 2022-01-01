@@ -1,9 +1,8 @@
-import { useState } from "react";
-import styled, { css } from "styled-components";
-import { Validation, ERROR } from "./common";
-import { InputField } from "./common/InputField";
+import { useState } from 'react';
+import styled, { css } from 'styled-components';
+import { Validation, ERROR } from './common';
+import { InputField } from './common/InputField';
 import { hexToRgbWithOpacity } from './utils';
-
 
 const AddressContainer = styled.div`
   display: flex;
@@ -29,19 +28,19 @@ const StyledMessage = styled.div`
         return css`
           color: ${hexToRgbWithOpacity(theme.error, 0.8)};
           font-size: ${theme.size.small};
-        `
+        `;
       }}
     }
   }
 `;
 
 const AddressCheck: Validation = (value: string): ERROR => {
-  if ((/^(0x)[a-fA-F0-9]{40}$/.exec(value)) === null) return [true, "이더리움 주소 형식과 다릅니다"];
-  return [false, ""];
-}
+  if (/^(0x)[a-fA-F0-9]{40}$/.exec(value) === null) return [true, '이더리움 주소 형식과 다릅니다'];
+  return [false, ''];
+};
 
-export const AddressInput = ({uniqueKey, ...props}): JSX.Element => {
-  const [address, setAddress] = useState<string>("");
+export const AddressInput = ({ uniqueKey, ...props }): JSX.Element => {
+  const [address, setAddress] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);
   const changeHandler = (value: string): void => {
     setAddress(value);
@@ -54,15 +53,16 @@ export const AddressInput = ({uniqueKey, ...props}): JSX.Element => {
 
   return (
     <AddressContainer>
-      <InputField 
+      <InputField
         uniqueKey={uniqueKey}
         value={address}
-        label="Ethereum Address"
-        placeholder="Etherem Address"
+        label='Ethereum Address'
+        placeholder='Etherem Address'
         onChange={changeHandler}
         onMessages={onMessage}
         validations={[AddressCheck]}
-        {...props}/>
+        {...props}
+      />
       <StyledMessage>
         <ul>
           {errors.map((error, index) => (
@@ -72,4 +72,4 @@ export const AddressInput = ({uniqueKey, ...props}): JSX.Element => {
       </StyledMessage>
     </AddressContainer>
   );
-}
+};

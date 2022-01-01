@@ -1,10 +1,5 @@
 import React, { useMemo } from 'react';
-import styled, {
-  css,
-  DefaultTheme,
-  createGlobalStyle,
-  ThemeProvider as OriginThemeProvider
-} from 'styled-components';
+import styled, { css, DefaultTheme, createGlobalStyle, ThemeProvider as OriginThemeProvider } from 'styled-components';
 import AnounousProRegularWOFF2 from './fonts/anonymous-pro-v14-latin-regular.woff2';
 import AnounousProBoldWOFF2 from './fonts/anonymous-pro-v14-latin-700.woff2';
 
@@ -13,23 +8,23 @@ export const MEDIA_WIDTHS = {
   upToSmall: 720,
   upToMedium: 960,
   upToLarge: 1280,
-}
+};
 
 const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(MEDIA_WIDTHS).reduce(
   (accumulator, size) => {
-    ;(accumulator as any)[size] = (a: any, b: any, c: any) => css`
+    (accumulator as any)[size] = (a: any, b: any, c: any) => css`
       @media (max-width: ${(MEDIA_WIDTHS as any)[size]}px) {
         ${css(a, b, c)}
       }
-    `
-    return accumulator
+    `;
+    return accumulator;
   },
   {}
 ) as any;
 
 function theme(darkMode: boolean): DefaultTheme {
   return {
-    dark : '#302F2D',
+    dark: '#302F2D',
     white: '#FFFAFA',
 
     // RGBA로 변경할 것.
@@ -41,7 +36,7 @@ function theme(darkMode: boolean): DefaultTheme {
 
     text: darkMode ? '#FFFAFA' : '#302F2D',
     background: darkMode ? '#302F2D' : '#FFFAFA',
-    flipground: darkMode ?  '#FFFAFA' : '#302F2D',
+    flipground: darkMode ? '#FFFAFA' : '#302F2D',
 
     size: {
       h1: '4.236rem',
@@ -49,7 +44,7 @@ function theme(darkMode: boolean): DefaultTheme {
       h3: '1.62rem',
       body: '1rem',
       small: '0.75rem',
-      pretitle: '0.619rem'
+      pretitle: '0.619rem',
     },
 
     grids: {
@@ -73,11 +68,11 @@ function theme(darkMode: boolean): DefaultTheme {
       display: flex;
       flex-flow: row nowrap;
     `,
-  }
+  };
 }
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
-    return <OriginThemeProvider theme={theme(true)}>{children}</OriginThemeProvider>;
+  return <OriginThemeProvider theme={theme(true)}>{children}</OriginThemeProvider>;
 };
 
 export const ThemedGlobalStyle = createGlobalStyle`
@@ -132,4 +127,4 @@ export const ThemedGlobalStyle = createGlobalStyle`
       outline: none;
     }
   }
-`
+`;

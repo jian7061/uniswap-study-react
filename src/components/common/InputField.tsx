@@ -1,13 +1,14 @@
-import { useState } from "react";
-import styled, { css } from "styled-components";
-import { BasicInput } from "./BasicInput";
+import { useState } from 'react';
+import styled, { css } from 'styled-components';
+import { BasicInput } from './BasicInput';
 import { Validation, Status } from './index';
 import { hexToRgbWithOpacity } from '../utils';
 
 const colorStyles = css`
-  ${({ theme, states}) => {
+  ${({ theme, states }) => {
     const textColor = theme.text;
-    const backgroundColor = states === Status.Success ? theme.success : states === Status.Error ? theme.error : theme.flipground;
+    const backgroundColor =
+      states === Status.Success ? theme.success : states === Status.Error ? theme.error : theme.flipground;
 
     return css`
       color: ${textColor};
@@ -28,70 +29,66 @@ const colorStyles = css`
 const Label = styled.label`
   font-weight: 400;
 
-  ${props => 
-    props.size === 'large' && 
+  ${(props) =>
+    props.size === 'large' &&
     css`
       font-size: ${props.theme.size.body};
       margin-left: ${props.theme.size.body};
       margin-right: ${props.theme.size.body};
       margin-top: ${props.theme.size.small};
-      `
-  }
-  
-  ${props => 
-    props.size === 'medium' && 
+    `}
+
+  ${(props) =>
+    props.size === 'medium' &&
     css`
       font-size: ${props.theme.size.small};
       margin-left: ${props.theme.size.small};
       margin-right: ${props.theme.size.small};
       margin-top: ${props.theme.size.pretitle};
-      `
-  }
-
-  /* ${props => 
-    props.size === 'large' && 
+    `} /* ${(props) =>
+    props.size === 'large' &&
     css`
       margin-left: 1.62rem;
       font-size: ${props.theme.size.h3};
       ${props.focused === true &&
-        css`
-          transform: translateY(-34px) translateX(0px);
-          font-size: ${props.theme.size.small};
-          padding: 0 6px;
-          z-index: 501;
-          background-color: ${props.theme.background};
-        `}
+      css`
+        transform: translateY(-34px) translateX(0px);
+        font-size: ${props.theme.size.small};
+        padding: 0 6px;
+        z-index: 501;
+        background-color: ${props.theme.background};
+      `}
     `}
 
-  ${props => 
-    props.size === 'medium' && 
+  ${(props) =>
+    props.size === 'medium' &&
     css`
       margin-left: 1rem;
       font-size: ${props.theme.size.body};
       ${props.focused === true &&
-        css`
-          transform: translateY(-23px) translateX(0px);
-          font-size: ${props.theme.size.small};
-          padding: 0 4px;
-          z-index: 501;
-          background-color: ${props.theme.background};
-        `}
+      css`
+        transform: translateY(-23px) translateX(0px);
+        font-size: ${props.theme.size.small};
+        padding: 0 4px;
+        z-index: 501;
+        background-color: ${props.theme.background};
+      `}
     `}
 
-  ${props => 
-    props.size === 'small' && 
+  ${(props) =>
+    props.size === 'small' &&
     css`
       margin-left: 0.875rem;
       font-size: ${props.theme.size.small};
 
       ${props.focused === true &&
-        css`
-          transform: translateY(-20px) translateX(2px);
-          font-size: ${props.theme.size.small};
-          padding: 0 4px;
-          z-index: 501;
-          background-color: ${props.theme.background};
-        `}
+      css`
+        transform: translateY(-20px) translateX(2px);
+        font-size: ${props.theme.size.small};
+        padding: 0 4px;
+        z-index: 501;
+        background-color: ${props.theme.background};
+      `}
     `} */
 `;
 
@@ -112,7 +109,7 @@ type InputFieldProps = {
   // 라벨 클릭으로 입력되기 위한 for
   uniqueKey: string;
 
-  // 메시지 validation 
+  // 메시지 validation
   children?: JSX.Element;
 
   size?: string;
@@ -129,21 +126,21 @@ type InputFieldProps = {
   // Input Field의 Validation을 통해 Input Field의 상태 Callback
   onStatus?: (status: Status) => void;
   validations?: Validation[];
-}
+};
 
 export const InputField = ({
   uniqueKey,
   children,
-  size='medium', 
-  value='',
-  label='',
-  placeholder='',
+  size = 'medium',
+  value = '',
+  label = '',
+  placeholder = '',
   onChange = () => undefined,
   onMessages = () => undefined,
   onStatus = () => undefined,
   validations = [
     () => {
-      return [false, ""];
+      return [false, ''];
     },
   ],
   ...rest
@@ -171,18 +168,21 @@ export const InputField = ({
       setStates(Status.Success);
     }
     onChange(value);
-  }
+  };
 
   return (
-      <StyledContainer states={states}>
-        <Label htmlFor={uniqueKey} size={size}>{label}</Label>
-        <BasicInput
-          uniqueKey={uniqueKey}
-          value={value}
-          size={size}
-          placeholder={placeholder}
-          onChange={handleChange}
-          {...rest}/>
-      </StyledContainer>
+    <StyledContainer states={states}>
+      <Label htmlFor={uniqueKey} size={size}>
+        {label}
+      </Label>
+      <BasicInput
+        uniqueKey={uniqueKey}
+        value={value}
+        size={size}
+        placeholder={placeholder}
+        onChange={handleChange}
+        {...rest}
+      />
+    </StyledContainer>
   );
-}
+};

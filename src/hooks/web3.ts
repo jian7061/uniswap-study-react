@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { useWeb3React as useWeb3ReactCore } from "@web3-react/core";
-import { Web3ReactContextInterface } from '@web3-react/core/dist/types'
+import { useState, useEffect } from 'react';
+import { useWeb3React as useWeb3ReactCore } from '@web3-react/core';
+import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
 import { Web3Provider } from '@ethersproject/providers';
 
-import { injected } from "../constants/connectors";
+import { injected } from '../constants/connectors';
 
 export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> {
   const context = useWeb3ReactCore<Web3Provider>();
@@ -66,17 +66,17 @@ export function useInactiveListener(suppress = false): void {
         activate(injected);
       };
 
-      ethereum.on("connect", handleConnect);
-      ethereum.on("chainChanged", handleChainChanged);
-      ethereum.on("accountsChanged", handleAccountsChanged);
-      ethereum.on("networkChanged", handleNetworkChanged);
+      ethereum.on('connect', handleConnect);
+      ethereum.on('chainChanged', handleChainChanged);
+      ethereum.on('accountsChanged', handleAccountsChanged);
+      ethereum.on('networkChanged', handleNetworkChanged);
 
       return () => {
         if (ethereum.removeListener) {
-          ethereum.removeListener("connect", handleConnect);
-          ethereum.removeListener("chainChanged", handleChainChanged);
-          ethereum.removeListener("accountsChanged", handleAccountsChanged);
-          ethereum.removeListener("networkChanged", handleNetworkChanged);
+          ethereum.removeListener('connect', handleConnect);
+          ethereum.removeListener('chainChanged', handleChainChanged);
+          ethereum.removeListener('accountsChanged', handleAccountsChanged);
+          ethereum.removeListener('networkChanged', handleNetworkChanged);
         }
       };
     }

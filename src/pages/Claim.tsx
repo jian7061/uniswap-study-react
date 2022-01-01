@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { formatEther } from '@ethersproject/units';
 
 import styled from 'styled-components';
 import { BigNumber } from '@ethersproject/bignumber';
 
-import { Button, Main } from "../components/common";
-import { AddressInput } from "../components/AddressInput";
+import { Button, Main, Container } from '../components/common';
+import { AddressInput } from '../components/AddressInput';
 
-import claim from "../claim.json";
-import { useMerkleDistributorContract } from "../hooks/useContract";
+import claim from '../claim.json';
+import { useMerkleDistributorContract } from '../hooks/useContract';
 
 interface ClaimType {
   merkleRoot: string;
@@ -23,16 +23,6 @@ interface ClaimType {
   };
 }
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 16px;
-
-  & > Main {
-    grid-column: 2 / 12;
-  }
-`;
-
 const InputGroup = styled.div`
   display: flex;
   flex-direction: row;
@@ -45,8 +35,8 @@ export function Claim(): JSX.Element {
   const { library } = useWeb3React();
   const Distributor = useMerkleDistributorContract();
   const [result] = useState<ClaimType>(claim);
-  const [address, setAddress] = useState<string>("");
-  const [amount, setAmount] = useState<BigNumber>(BigNumber.from("0"));
+  const [address, setAddress] = useState<string>('');
+  const [amount, setAmount] = useState<BigNumber>(BigNumber.from('0'));
   const [proof, setProof] = useState<string[]>([]);
   const [index, setIndex] = useState<number>(999);
 
@@ -55,47 +45,56 @@ export function Claim(): JSX.Element {
   };
 
   useEffect(() => {
-    if(result.claims[`${address}`] !== undefined) {
-      Distributor?.isClaimed(result.claims[`${address}`].index).then(claimed => {
+    if (result.claims[`${address}`] !== undefined) {
+      Distributor?.isClaimed(result.claims[`${address}`].index).then((claimed) => {
         setIndex(result.claims[`${address}`].index);
         setProof(result.claims[`${address}`].proof);
-        claimed ? setAmount(BigNumber.from("0")) : setAmount(BigNumber.from(result.claims[`${address}`].amount));
+        claimed ? setAmount(BigNumber.from('0')) : setAmount(BigNumber.from(result.claims[`${address}`].amount));
       });
     } else {
-      setAmount(BigNumber.from("0"));
+      setAmount(BigNumber.from('0'));
       setProof([]);
       setIndex(999);
     }
-  }, [address, library])
+  }, [address, library]);
 
   return (
     <>
-    <Container>
-      <Main>
-        <article>
-          <h1>Drop the bean</h1>
-          <h3 className='subheader'>아무런 대가 없이 호기심만으로 With☕️ 토큰을 사용하셨기에, bean the DAO의 거버넌스 토큰인 $BEAN을 드립니다.</h3>
-        </article>
+      <Container>
+        <Main>
+          <article>
+            <h1>Drop the bean</h1>
+            <h3 className='subheader'>
+              아무런 대가 없이 호기심만으로 With☕️ 토큰을 사용하셨기에, bean the DAO의 거버넌스 토큰인 $BEAN을
+              드립니다.
+            </h3>
+          </article>
 
-        <article>
-          <p><strong>청구 가능한 수량:</strong> {formatEther(amount)}</p>
-          <InputGroup>
-            <AddressInput 
-              uniqueKey={'addr'}
-              size={'medium'}
-              value={address}
-              placeholder={"주소를 입력하세요"}
-              onChange={changeHandler}/>
-            <Button
-              size={'medium'}
-              onClick={async () => {
-                await Distributor?.claim(index, address, amount, proof, { gasLimit: '320000' });
-              }} outline>Claim</Button>
-          </InputGroup>
-        </article>
-      </Main>
-    </Container>
-    {/* <div className="App"> */}
+          <article>
+            <p>
+              <strong>청구 가능한 수량:</strong> {formatEther(amount)}
+            </p>
+            <InputGroup>
+              <AddressInput
+                uniqueKey={'addr'}
+                size={'medium'}
+                value={address}
+                placeholder={'주소를 입력하세요'}
+                onChange={changeHandler}
+              />
+              <Button
+                size={'medium'}
+                onClick={async () => {
+                  await Distributor?.claim(index, address, amount, proof, { gasLimit: '320000' });
+                }}
+                outline>
+                Claim
+              </Button>
+            </InputGroup>
+          </article>
+        </Main>
+      </Container>
+      {/* <div className="App"> */}
       {/* {Object.keys(connectorsByName).map(name => {
           const currentConnector  = connectorsByName[name];
           const activating = currentConnector === activatingConnector;
@@ -141,8 +140,7 @@ export function Claim(): JSX.Element {
             </button>
           )
         })} */}
-    {/* </div> */}
+      {/* </div> */}
     </>
   );
 }
-

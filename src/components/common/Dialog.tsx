@@ -12,22 +12,22 @@ const DarkBackground = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 999;
-  background-color: ${props => hexToRgbWithOpacity(`${props.theme.flipground}`, 0.3)};
+  background-color: ${(props) => hexToRgbWithOpacity(`${props.theme.flipground}`, 0.3)};
 `;
 
 const DialogBlock = styled.div`
   width: 320px;
   padding: 1.5rem;
-  ${props => 
+  ${(props) =>
     css`
       background: ${props.theme.background};
     `}
-  
+
   border-radius: 1rem;
 
   h3 {
     margin: 0;
-    font-size: ${props => props.theme.size.body};
+    font-size: ${(props) => props.theme.size.body};
   }
 
   p {
@@ -53,7 +53,7 @@ const DialogHeader = styled.div`
     color: white;
     height: 100%;
   }
-  
+
   margin-bottom: 1.62rem;
 `;
 
@@ -76,11 +76,9 @@ export function Dialog({ children, headertitle, onCancel, visible }): JSX.Elemen
       <DialogBlock>
         <DialogHeader>
           <h3>{headertitle}</h3>
-          <Close onClick={onCancel}/>
+          <Close onClick={onCancel} />
         </DialogHeader>
-        <ButtonGroup>
-          {children}
-        </ButtonGroup>
+        <ButtonGroup>{children}</ButtonGroup>
       </DialogBlock>
     </DarkBackground>
   );

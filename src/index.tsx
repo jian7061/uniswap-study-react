@@ -1,12 +1,13 @@
-import React, { StrictMode } from "react";
-import { createWeb3ReactRoot, Web3ReactProvider} from '@web3-react/core';
-import ReactDOM from "react-dom";
-import { HashRouter } from "react-router-dom";
-import { ThemeProvider, ThemedGlobalStyle } from "./theme";
-import App from "./App";
+import React, { StrictMode } from 'react';
+import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core';
+import ReactDOM from 'react-dom';
+import { HashRouter } from 'react-router-dom';
+
+import { ThemeProvider, ThemedGlobalStyle } from './theme';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from "./reportWebVitals";
-import { getLibrary } from "./utils";
+import reportWebVitals from './reportWebVitals';
+import { getLibrary } from './utils';
+import App from './App';
 
 const Web3ProviderNetwork = createWeb3ReactRoot('NETWORK');
 
@@ -16,14 +17,14 @@ ReactDOM.render(
       <Web3ProviderNetwork getLibrary={getLibrary}>
         <HashRouter>
           <ThemeProvider>
-            <ThemedGlobalStyle/>
-              <App />
+            <ThemedGlobalStyle />
+            <App />
           </ThemeProvider>
         </HashRouter>
       </Web3ProviderNetwork>
     </Web3ReactProvider>
   </StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 console.log('Service Worker is Enabled?: ', process.env.REACT_APP_SERVICE_WORKER);
