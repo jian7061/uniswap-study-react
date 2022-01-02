@@ -45,6 +45,7 @@ export function useInactiveListener(suppress = false): void {
   const { active, error, activate } = useWeb3ReactCore();
 
   useEffect((): any => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { ethereum } = window as any;
     if (ethereum && ethereum.on && !active && !error && !suppress) {
       const handleConnect = () => {

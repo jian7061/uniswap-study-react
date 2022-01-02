@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import { hexToRgbWithOpacity } from '../utils';
 import { Close } from '.';
+import { useContext } from 'react';
+import { DialogContext } from '../../contexts/DialogContext';
 
 const DarkBackground = styled.div`
   position: fixed;
@@ -57,7 +59,7 @@ const DialogHeader = styled.div`
   margin-bottom: 1.62rem;
 `;
 
-const ButtonGroup = styled.div`
+const BodyGroup = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -69,17 +71,38 @@ const ButtonGroup = styled.div`
   }
 `;
 
-export function Dialog({ children, headertitle, onCancel, visible }): JSX.Element {
-  if (!visible) return <></>;
+export function Dialog(): JSX.Element {
+  const { dialogContent, handleDialog, dialog } = useContext(DialogContext);
+
+  // useEffect(() => {
+  //   const bind = (e) => {
+  //     // ESC
+  //     if (e.keyCode !== 27) {
+  //       return;
+  //     }
+  //     if (document.activeElement && ['INPUT', 'SELECT'].includes(document.activeElement.tagName)) {
+  //       return;
+  //     }
+  //     // handleDialog();
+  //   };
+  //   document.addEventListener('keyup', bind);
+  //   return () => document.removeEventListener('keyup', bind);
+  // }, [dialogContent, handleDialog]);
+
   return (
-    <DarkBackground>
-      <DialogBlock>
-        <DialogHeader>
-          <h3>{headertitle}</h3>
-          <Close onClick={onCancel} />
-        </DialogHeader>
-        <ButtonGroup>{children}</ButtonGroup>
-      </DialogBlock>
-    </DarkBackground>
+    <>
+      {dialog ? (
+        <DarkBackground>
+          <DialogBlock>
+            <DialogHeader>
+              <Close onClick={handleDialog} />
+            </DialogHeader>
+            <BodyGroup>{dialogContent}</BodyGroup>
+          </DialogBlock>
+        </DarkBackground>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }

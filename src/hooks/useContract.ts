@@ -37,7 +37,7 @@ function getProviderOrSigner(library: Web3Provider, account?: string): Web3Provi
 }
 
 export function getContract(address: string, ABI: any, library: Web3Provider, account?: string): Contract {
-  return new Contract(address, ABI, getProviderOrSigner(library, account) as any);
+  return new Contract(address, ABI, getProviderOrSigner(library, account));
 }
 
 export function useMerkleDistributorContract(): Contract | null {

@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { Main, Container } from '../components/common';
 
 export function Rule(): JSX.Element {

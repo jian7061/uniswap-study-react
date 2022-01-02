@@ -15,6 +15,7 @@ const StyledClose = styled.div`
   }
 `;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const Close = ({ onClick }): JSX.Element => {
   return (
     <StyledClose onClick={onClick}>
@@ -25,8 +26,8 @@ export const Close = ({ onClick }): JSX.Element => {
           x2='23.5'
           y2='-1.5'
           transform='matrix(0.700909 0.71325 0.71325 -0.700909 2.12897 0)'
-          stroke-width='3'
-          stroke-linecap='round'
+          strokeWidth='3'
+          strokeLinecap='round'
         />
         <line
           x1='1.5'
@@ -34,8 +35,8 @@ export const Close = ({ onClick }): JSX.Element => {
           x2='23.5'
           y2='-1.5'
           transform='matrix(0.700909 -0.71325 -0.71325 -0.700909 0 17.9561)'
-          stroke-width='3'
-          stroke-linecap='round'
+          strokeWidth='3'
+          strokeLinecap='round'
         />
       </svg>
     </StyledClose>

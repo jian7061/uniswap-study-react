@@ -20,6 +20,7 @@ const StyledWalletInfo = styled.div`
   }}
 `;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const WalletInfo = ({ children }): JSX.Element => {
   return <StyledWalletInfo>{children}</StyledWalletInfo>;
 };

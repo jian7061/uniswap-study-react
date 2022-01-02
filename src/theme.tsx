@@ -1,19 +1,19 @@
-import React, { useMemo } from 'react';
-import styled, { css, DefaultTheme, createGlobalStyle, ThemeProvider as OriginThemeProvider } from 'styled-components';
+import React from 'react';
+import { css, DefaultTheme, createGlobalStyle, ThemeProvider as OriginThemeProvider } from 'styled-components';
 import AnounousProRegularWOFF2 from './fonts/anonymous-pro-v14-latin-regular.woff2';
 import AnounousProBoldWOFF2 from './fonts/anonymous-pro-v14-latin-700.woff2';
 
 export const MEDIA_WIDTHS = {
-  upToExtraSmall: 500,
-  upToSmall: 720,
-  upToMedium: 960,
-  upToLarge: 1280,
+  upToExtraSmall: 480,
+  upToSmall: 769,
+  upToMedium: 992,
+  upToLarge: 1200,
 };
 
 const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(MEDIA_WIDTHS).reduce(
   (accumulator, size) => {
     (accumulator as any)[size] = (a: any, b: any, c: any) => css`
-      @media (max-width: ${(MEDIA_WIDTHS as any)[size]}px) {
+      @media (min-width: ${(MEDIA_WIDTHS as any)[size]}px) {
         ${css(a, b, c)}
       }
     `;
@@ -95,8 +95,16 @@ export const ThemedGlobalStyle = createGlobalStyle`
   }
 
   html {
+    font-size: 12px;
     color: ${({ theme }) => theme.text};
     background-color: ${({ theme }) => theme.background} !important;
+    ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+      font-size: 14px;
+    `};
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+      font-size: 16px;
+    `};
   }
 
   body {

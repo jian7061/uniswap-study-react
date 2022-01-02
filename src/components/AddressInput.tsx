@@ -39,6 +39,7 @@ const AddressCheck: Validation = (value: string): ERROR => {
   return [false, ''];
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const AddressInput = ({ uniqueKey, ...props }): JSX.Element => {
   const [address, setAddress] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);

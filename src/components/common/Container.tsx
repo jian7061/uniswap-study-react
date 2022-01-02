@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
@@ -7,20 +7,31 @@ export const Container = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
 
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    min-width: 320px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  `};
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    min-width: 480px;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  `};
+
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    min-width: 769px;
+    padding-left: 1.679rem;
+    padding-right: 1.679rem;
+  `};
+
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+    min-width: 992px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  `};
+
   & > Main {
-    grid-column: 2 / 12;
+    grid-column: 1 / 13;
   }
 `;
-
-// const Wrapper = styled.div`
-//   display: flex;
-//   justify-content: flex-start;
-//   flex-wrap: wrap;
-//   margin: 0 -8px 0 -8px;
-//   @media (min-width: 480px) {
-//   }
-//   @media (min-width: 769px) {
-//   }
-//   @media (min-width: 1024px) {
-//   }
-// `;

@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { NavLink } from 'react-router-dom';
 import { Web3Provider } from '@ethersproject/providers';
 import styled from 'styled-components';
 import { injected, walletconnect } from '../../constants/connectors';
-import { Button, Logo, Dialog } from '.';
+import { Button, Logo } from '.';
 import { WalletInfo } from './WalletInfo';
+import { DialogContext } from '../../contexts/DialogContext';
 
 // enum ConnectorNames {
 //     Injected = 'Injected',
@@ -34,6 +35,7 @@ const StyledContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   margin: 0 1rem;
+  font-size: ${(props) => props.theme.size.body};
 
   & > * {
     margin: 0 1rem;
@@ -50,21 +52,40 @@ const Alert = styled.div`
   color: #fffafa;
   font-family: Anonymous Pro;
   font-style: bold;
-  font-size: 25.92px;
-  line-height: 26px;
+  font-size: ${(props) => props.theme.size.h3};
+  line-height: ${(props) => props.theme.size.h3};
 `;
 
-export const Navbar = (): JSX.Element => {
-  const [dialog, setDialog] = useState(false);
+export const DialogBody = (): JSX.Element => {
   const context = useWeb3React<Web3Provider>();
-  const { chainId, account, activate, deactivate } = context;
+  const { activate } = context;
+  return (
+    <>
+      <Button
+        size={'medium'}
+        onClick={() => {
+          activate(walletconnect);
+        }}>
+        WalletConnect
+      </Button>
+      <Button
+        size={'medium'}
+        onClick={() => {
+          activate(injected);
+        }}>
+        브라우저 확장
+      </Button>
+    </>
+  );
+};
+
+export const Navbar = (): JSX.Element => {
+  const { handleDialog } = useContext(DialogContext);
+  const context = useWeb3React<Web3Provider>();
+  const { chainId, account } = context;
 
   const handleConnect = () => {
-    setDialog(true);
-  };
-
-  const onCancel = () => {
-    setDialog(false);
+    handleDialog(<DialogBody />);
   };
 
   return (
@@ -96,24 +117,6 @@ export const Navbar = (): JSX.Element => {
           </WalletInfo>
         )}
       </StyledNavbar>
-      <Dialog headertitle={'연결할 지갑을 선택하세요'} onCancel={onCancel} visible={dialog}>
-        <Button
-          size={'medium'}
-          onClick={() => {
-            activate(walletconnect);
-            onCancel();
-          }}>
-          WalletConnect
-        </Button>
-        <Button
-          size={'medium'}
-          onClick={() => {
-            activate(injected);
-            onCancel();
-          }}>
-          브라우저 확장
-        </Button>
-      </Dialog>
     </>
   );
 };

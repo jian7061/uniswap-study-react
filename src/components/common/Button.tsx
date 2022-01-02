@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { darken, lighten } from 'polished';
+import React from 'react';
 
 const colorStyles = css`
   ${({ theme, color }) => {
@@ -76,6 +77,7 @@ const StyledButton = styled.button`
     } */
 `;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const Button = ({ children, size = 'medium', color = 'primary', outline = false, ...rest }): JSX.Element => {
   return (
     <StyledButton color={color} size={size} outline={outline} {...rest}>

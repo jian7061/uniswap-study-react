@@ -13,20 +13,20 @@ const StyledMain = styled.main`
     font-family: Anonymous Pro;
     font-style: normal;
     font-weight: bold;
-    font-size: 67.77px;
-    line-height: 68px;
+    font-size: ${(props) => props.theme.size.h1};
+    line-height: ${(props) => props.theme.size.h1};
     color: inherit;
-    margin: 12px 1rem;
+    margin: 0.75rem 1rem;
   }
 
   h2 {
     font-family: Anonymous Pro;
     font-style: normal;
     font-weight: bold;
-    font-size: 41.89px;
-    line-height: 42px;
+    font-size: ${(props) => props.theme.size.h2};
+    line-height: ${(props) => props.theme.size.h2};
     color: inherit;
-    margin: 12px 1rem;
+    margin: 0.75rem 1rem;
   }
 
   h3 {
@@ -36,7 +36,7 @@ const StyledMain = styled.main`
     font-size: ${(props) => props.theme.size.h3};
     line-height: ${(props) => props.theme.size.h3};
     color: inherit;
-    margin: 12px 1rem;
+    margin: 0.75rem 1rem;
   }
 
   h3.subheader {
@@ -47,7 +47,7 @@ const StyledMain = styled.main`
     line-height: ${(props) => props.theme.size.h3};
     color: inherit;
     opacity: 0.5;
-    margin: 12px 1rem;
+    margin: 0.75rem 1rem;
   }
 
   h3.subtitle {
@@ -57,7 +57,7 @@ const StyledMain = styled.main`
     font-size: ${(props) => props.theme.size.h3};
     line-height: ${(props) => props.theme.size.h3};
     color: inherit;
-    margin: 12px 1rem;
+    margin: 0.75rem 1rem;
   }
 
   p {
@@ -65,17 +65,17 @@ const StyledMain = styled.main`
     font-style: normal;
     font-weight: normal;
     font-size: ${(props) => props.theme.size.body};
-    line-height: 22px;
+    line-height: 1.375rem;
     color: inherit;
-    margin: 12px 1rem;
+    margin: 0.75rem 1rem;
 
     & > strong {
       font-family: Anonymous Pro;
       font-style: normal;
       font-weight: bold;
       font-size: ${(props) => props.theme.size.body};
-      line-height: 22px;
-      margin: inherit;
+      line-height: 1.375rem;
+      margin: 0.75rem 1rem;
     }
 
     & > small {
@@ -93,12 +93,13 @@ const StyledMain = styled.main`
     padding-left: ${(props) => props.theme.size.h3};
     & > li {
       word-wrap: break-word;
-      line-height: 22px;
+      line-height: 1.375rem;
       margin: ${(props) => props.theme.size.small} 0;
     }
   }
 `;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const Main = (props): JSX.Element => {
   return <StyledMain {...props} />;
 };

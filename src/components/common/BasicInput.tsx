@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
-import { Validation } from './index';
-import { hexToRgbWithOpacity } from '../utils';
 
 // const StyledContainer = styled.div`
 //   width: 100%;
@@ -150,24 +148,24 @@ const StyledInput = styled.input`
 `;
 
 type BasicInputProps = {
-  uniqueKey: string,
+  uniqueKey: string;
 
-  type?: string,
+  type?: string;
   // Input Field에 나타날 문자열 데이터
-  value?: string,
+  value?: string;
   // Input Field를 통해 입력 가능한 최대 크기 Right Label이 활성화 되어 있는 경우에만 가능.
   // Only Possibly Numeric Type Value
-  maxValue?: string,
+  maxValue?: string;
   // Input Field의 크기 'large', 'medium', 'small'
-  size?: string,
+  size?: string;
   // Input Field 오른쪽 상단에 존재하는 Label Text
-  labelRight?: string,
+  labelRight?: string;
   // Input Field에 나타나는 Placeholder Text
-  placeholder?: string,
+  placeholder?: string;
   // Input Field가 Blur 상태일 때, Label을 고정하는 옵션,
-  fixed?: boolean,
+  fixed?: boolean;
   // Input Field에 데이터가 입력될 때 데이터를 담은 Callback
-  onChange?: (value: string) => void,
+  onChange?: (value: string) => void;
   // // Input Field의 Validation을 통해 성공 또는 오류 Text들 Callback
   // onMessages?: (value: string[]) => void;
   // // Input Field의 오른쪽 라벨을 눌렀을 때 실행되는 Callback
