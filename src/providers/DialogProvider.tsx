@@ -1,6 +1,6 @@
-import { Dialog } from '../common';
-import { useDialog } from '../../hooks';
-import { DialogContext } from '../../contexts/DialogContext';
+import { Dialog } from '../components/common';
+import { useDialog } from '../hooks';
+import { DialogContext } from '../contexts/DialogContext';
 import React from 'react';
 
 export const DialogProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {

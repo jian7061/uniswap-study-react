@@ -1,6 +1,6 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Navbar, Web3ReactManager } from './components/common';
-import { DialogProvider } from './components/providers/DialogProvider';
+import { DialogProvider } from './providers/DialogProvider';
 import { Claim } from './pages/Claim';
 import { Rule } from './pages/Rule';
 
