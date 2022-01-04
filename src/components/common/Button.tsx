@@ -66,6 +66,7 @@ const StyledButton = styled.button`
   font-style: normal;
   font-weight: bold;
   height: 100%;
+  white-space: nowrap;
 
   /* 크기 */
   ${sizeStyles}

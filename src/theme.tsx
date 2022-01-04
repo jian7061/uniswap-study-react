@@ -102,7 +102,7 @@ export const ThemedGlobalStyle = createGlobalStyle`
       font-size: 14px;
     `};
 
-  ${({ theme }) => theme.mediaWidth.upToSmall`
+    ${({ theme }) => theme.mediaWidth.upToSmall`
       font-size: 16px;
     `};
   }
