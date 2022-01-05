@@ -109,7 +109,7 @@ export const Navbar = (): JSX.Element => {
         </StyledContainer>
         {account === undefined ? (
           <Button size={'medium'} onClick={handleConnect}>
-            Connect
+            Wallet Connect
           </Button>
         ) : (
           <WalletInfo>

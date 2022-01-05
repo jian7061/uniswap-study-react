@@ -44,6 +44,7 @@ export function useEagerConnect(): boolean {
 export function useInactiveListener(suppress = false): void {
   const { active, error, activate } = useWeb3ReactCore();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   useEffect((): any => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { ethereum } = window as any;
