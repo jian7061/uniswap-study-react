@@ -4,7 +4,7 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { getLibrary } from '../utils';
 import { NetworkConnector } from './NetworkConnector';
 
-const RIVET_KEY = process.env.REACT_APP_RIVET_KEY;
+export const RIVET_KEY = process.env.REACT_APP_RIVET_KEY;
 
 if (typeof RIVET_KEY === 'undefined') {
   throw new Error(`REACT_APP_INFURA_KEY must be a defined environment variable`);

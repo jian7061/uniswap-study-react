@@ -57,8 +57,8 @@ export const AddressInput = ({ uniqueKey, ...props }): JSX.Element => {
       <InputField
         uniqueKey={uniqueKey}
         value={address}
-        label='Ethereum Address'
-        placeholder='Etherem Address'
+        label='Contract Address'
+        placeholder='Contract Address'
         onChange={changeHandler}
         onMessages={onMessage}
         validations={[AddressCheck]}

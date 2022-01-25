@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { formatEther } from '@ethersproject/units';
-
+import { formatEther, parseUnits } from '@ethersproject/units';
+import Dev from './Token';
 import styled from 'styled-components';
 import { BigNumber } from '@ethersproject/bignumber';
 
-import { Button, Main, Container } from '../components/common';
+import { Button, Main, Container, InputField } from '../components/common';
 import { AddressInput } from '../components/AddressInput';
 
 import claim from '../claim.json';
-import { useMerkleDistributorContract } from '../hooks/useContract';
+import { useMerkleDistributorContract, useContract } from '../hooks/useContract';
+import GetPairPoolPrice from '../components/GetPairPoolPrice';
 
 interface ClaimType {
   merkleRoot: string;
@@ -58,22 +59,15 @@ export function Claim(): JSX.Element {
     }
   }, [address, library]);
 
+  const onSubmit = () => {
+    window.location.pathname = address;
+  };
+
   return (
     <>
       <Container>
         <Main>
           <article>
-            <h1>Drop the bean</h1>
-            <h3 className='subheader'>
-              아무런 대가 없이 호기심만으로 With☕️ 토큰을 사용하셨기에, bean the DAO의 거버넌스 토큰인 $BEAN을
-              드립니다.
-            </h3>
-          </article>
-
-          <article>
-            <p>
-              <strong>청구 가능한 수량:</strong> {formatEther(amount)}
-            </p>
             <InputGroup>
               <AddressInput
                 uniqueKey={'addr'}
@@ -82,65 +76,14 @@ export function Claim(): JSX.Element {
                 placeholder={'주소를 입력하세요'}
                 onChange={changeHandler}
               />
-              <Button
-                size={'medium'}
-                onClick={async () => {
-                  await Distributor?.claim(index, address, amount, proof, { gasLimit: '320000' });
-                }}
-                outline>
-                Claim
+              <Button size={'medium'} onClick={onSubmit} outline>
+                Submit
               </Button>
             </InputGroup>
           </article>
+          <GetPairPoolPrice />
         </Main>
       </Container>
-      {/* <div className="App"> */}
-      {/* {Object.keys(connectorsByName).map(name => {
-          const currentConnector  = connectorsByName[name];
-          const activating = currentConnector === activatingConnector;
-          const connected = currentConnector === connector;
-          const disabled = !triedEager || !!activatingConnector || connected || !!error;
-
-          return (
-            <button
-              style={{
-                height: '3rem',
-                borderRadius: '1rem',
-                borderColor: activating ? 'orange' : connected ? 'green' : 'unset',
-                cursor: disabled ? 'unset' : 'pointer',
-                position: 'relative'
-              }}
-              disabled={disabled}
-              key={name}
-              onClick={() => {
-                setActivatingConnector(currentConnector)
-                activate(connectorsByName[name])
-              }}
-            >
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '0',
-                  left: '0',
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  color: 'black',
-                  margin: '0 0 0 1rem'
-                }}
-              >
-                {activating && 'spinner'}
-                {connected && (
-                  <span role="img" aria-label="check">
-                    ✅
-                  </span>
-                )}
-              </div>
-              {name}
-            </button>
-          )
-        })} */}
-      {/* </div> */}
     </>
   );
 }

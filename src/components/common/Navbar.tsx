@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { NavLink } from 'react-router-dom';
 import { Web3Provider } from '@ethersproject/providers';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { injected, walletconnect } from '../../constants/connectors';
 import { Button, Logo } from '.';
 import { WalletInfo } from './WalletInfo';
@@ -98,15 +98,9 @@ export const Navbar = (): JSX.Element => {
         ''
       )}
       <StyledNavbar>
-        <Logo />
-        <StyledContainer>
-          <NavLink to='/claim' activeClassName='hurray'>
-            Claim
-          </NavLink>
-          <NavLink to='/rule' activeClassName='hurray'>
-            Rule
-          </NavLink>
-        </StyledContainer>
+        <Link to='/'>
+          <Logo />
+        </Link>
         {account === undefined ? (
           <Button size={'medium'} onClick={handleConnect}>
             Wallet Connect

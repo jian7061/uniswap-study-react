@@ -1,7 +1,7 @@
 import React, { StrictMode } from 'react';
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core';
 import ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import { ThemeProvider, ThemedGlobalStyle } from './theme';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -15,12 +15,12 @@ ReactDOM.render(
   <StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
       <Web3ProviderNetwork getLibrary={getLibrary}>
-        <HashRouter>
+        <BrowserRouter>
           <ThemeProvider>
             <ThemedGlobalStyle />
             <App />
           </ThemeProvider>
-        </HashRouter>
+        </BrowserRouter>
       </Web3ProviderNetwork>
     </Web3ReactProvider>
   </StrictMode>,

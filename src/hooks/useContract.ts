@@ -3,7 +3,7 @@ import { Contract } from '@ethersproject/contracts';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { useActiveWeb3React } from './web3';
 
-import { MERKLE_DISTRIBUTOR_ADDRESS } from '../constants/addresses';
+import { MERKLE_DISTRIBUTOR_ADDRESS, ABI } from '../constants';
 import MERKLE_DISTRIBUTOR_ABI from '../ABIs/MerkleDistributor.json';
 
 export function useContract<T extends Contract = Contract>(
@@ -42,4 +42,8 @@ export function getContract(address: string, ABI: any, library: Web3Provider, ac
 
 export function useMerkleDistributorContract(): Contract | null {
   return useContract(MERKLE_DISTRIBUTOR_ADDRESS, MERKLE_DISTRIBUTOR_ABI, true);
+}
+
+export function useTokenContract(address: string): Contract | null {
+  return useContract(address, ABI);
 }
